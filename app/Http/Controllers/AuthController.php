@@ -28,4 +28,23 @@ class AuthController extends Controller
         $accessToken = $user->createToken('authToken')->accessToken;
         return response(['user'=> $user, 'accessToken' => $accessToken]);
     }
+
+    public function login(Request $request)
+    {
+        $validate = Validator::make($request->all(), [
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+
+        if($validate->fails()) return 'Loi';
+
+        if(!auth()->attempt($request->only('email','password')))
+        {
+            return 'Sai email hoac mat khau';
+        }
+
+        $accessToken = auth()->user()->createToken('authToken')->accessToken;
+        return response(['user'=> auth()->user(), 'accessToken' => $accessToken]);
+
+    }
 }
