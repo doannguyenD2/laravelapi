@@ -47,4 +47,6 @@ class AuthController extends Controller
         return response(['user'=> auth()->user(), 'accessToken' => $accessToken]);
 
     }
+
+    //send mail 
 }
