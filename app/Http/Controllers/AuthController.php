@@ -35,6 +35,7 @@ class AuthController extends Controller
         $url = env('APP_URL').'/verify'.'/'.$token;
         try
         {
+            //fig bug
             Mail::to($request['email'])->send(new Build([
                 'name' => $request['name'],
                 'url'=> $url,
