@@ -17,7 +17,7 @@ Route::post('register', 'AuthController@register');
 Route::post('login', 'AuthController@login')->name('login');
 Route::get('verify/{token}','AuthController@verify');
 Route::get('test', function () {
-    return 'test';
+    return 'da test';
 })->middleware('auth:api','verifiedMail');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();

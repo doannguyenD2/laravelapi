@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CheckVerify
 {
@@ -16,11 +17,12 @@ class CheckVerify
      */
     public function handle(Request $request, Closure $next)
     {
-        return response(['request'=>$request->all()]);
-        if(!isset($request->user()->email_verified)) return response(['Token mismatch'],403);
-        if($request->user()->email_verified == 1)
+        // return response(['request'=>Auth::user()->email_verified]);
+        if(!isset(Auth::user()->email_verified)) return response(['Token mismatch'],403);
+        if(Auth::user()->email_verified == 1)
         return $next($request);
+        // return response(['verified'],200);
         else 
-        return redirect()->route('login');
+        return response(['not verified'],403);
     }
 }
