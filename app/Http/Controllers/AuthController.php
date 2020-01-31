@@ -86,4 +86,5 @@ class AuthController extends Controller
     }
 
     //send mail 
+    // add role
 }
