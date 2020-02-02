@@ -37,4 +37,38 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
+* @param string|array $roles
+*/
+
+//https://viblo.asia/p/bai-17-phan-quyen-trong-laravel-RnB5p0pD5PG
+public function authorizeRoles($roles)
+{
+  if (is_array($roles)) {
+      return $this->hasAnyRole($roles);
+  }
+  return $this->hasRole($roles);
+}
+/**
+* Check multiple roles
+* @param array $roles
+*/
+public function hasAnyRole($roles)
+{
+  return null !== $this->roles()->whereIn('name', $roles)->first();
+}
+/**
+* Check one role
+* @param string $role
+*/
+public function hasRole($role)
+{
+  return null !== $this->roles()->where('name', $role)->first();
+}
 }

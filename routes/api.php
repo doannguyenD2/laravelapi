@@ -19,6 +19,7 @@ Route::get('verify/{token}','AuthController@verify');
 Route::get('test', function () {
     return 'da test';
 })->middleware('auth:api','verifiedMail');
+Route::middleware('auth:api')->get('checkrole', 'AuthController@checkRole');
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });

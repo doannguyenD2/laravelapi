@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Log;
 use Validator;
 use Mail;
 use App\Mail\Build;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class AuthController extends Controller
@@ -87,4 +89,11 @@ class AuthController extends Controller
 
     //send mail 
     // add role
+    public function checkRole(Request $request)
+    {
+        // return response(['user'=>Auth::user()]);
+        if(Auth::user()->authorizeRoles(['employee', 'admin']))
+        return response('ok',200);
+        else return response('not auth',501);
+    }
 }
